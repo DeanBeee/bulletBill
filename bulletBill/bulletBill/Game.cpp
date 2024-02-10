@@ -101,6 +101,7 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+	moveTarget();
 }
 
 /// <summary>
@@ -152,4 +153,22 @@ void Game::setupSprite()
 	m_target.setPosition(m_targetLocation);
 
 
+}
+void Game::moveTarget()//added movement to the target and collusion 
+//for when the target meets the left wall and right side of the screen
+{
+	const float SPEED = 0.6f;
+	const float LEFT_EDGE = 420.0f;
+	const float RIGHT_EDGE = 740.0f;
+
+	if (m_targetLocation.x < LEFT_EDGE)
+	{
+		m_targetVelocity.x = SPEED;
+	}
+	if (m_targetLocation.x > RIGHT_EDGE)
+	{
+		m_targetVelocity.x = -SPEED;
+	}
+	m_targetLocation += m_targetVelocity;
+	m_target.setPosition(m_targetLocation);
 }
