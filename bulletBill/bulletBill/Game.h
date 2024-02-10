@@ -35,6 +35,7 @@ private:
 	sf::Text m_welcomeMessage; // text used for message on screen
 	sf::Texture m_logoTexture; // texture used for sfml logo
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
+	sf::RectangleShape m_wall;//wall hot box
 	bool m_exitGame; // control exiting game
 
 };
