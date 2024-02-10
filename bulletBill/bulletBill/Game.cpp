@@ -111,6 +111,7 @@ void Game::render()
 	m_window.clear(sf::Color::White);
 	m_window.draw(m_welcomeMessage);
 	m_window.draw(m_logoSprite);
+	m_window.draw(m_target);
 	m_window.draw(m_wall);
 	m_window.display();
 }
@@ -143,6 +144,12 @@ void Game::setupSprite()
 	m_wall.setFillColor(sf::Color::Black);// properties of wall
 	m_wall.setSize(sf::Vector2f{ 32.0f,100.0f });
 	m_wall.setPosition(400.0f, 500.0f);
+
+
+	m_target.setFillColor(sf::Color::Green);// properties of target
+	m_target.setSize(sf::Vector2f{ 55.0f, 55.0f });
+	m_targetLocation = sf::Vector2f{ 435.0f,545.0f };
+	m_target.setPosition(m_targetLocation);
 
 
 }
