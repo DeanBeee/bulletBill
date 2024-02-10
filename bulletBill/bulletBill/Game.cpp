@@ -89,6 +89,7 @@ void Game::processKeys(sf::Event t_event)
 	{
 		m_exitGame = true;
 	}
+
 }
 
 /// <summary>
@@ -152,7 +153,8 @@ void Game::setupSprite()
 
 	m_target.setFillColor(sf::Color::Green);// properties of target
 	m_target.setSize(sf::Vector2f{ 55.0f, 55.0f });
-	m_targetLocation = sf::Vector2f{ 435.0f,545.0f };
+	m_targetLocation = sf::Vector2f{ 420.0f,545.0f };
+
 	m_target.setPosition(m_targetLocation);
 
 	//gumbas properties 
@@ -163,8 +165,7 @@ void Game::setupSprite()
 
 	m_gumbaSprite.setTexture(m_gumbaTexture);
 	m_gumbaSprite.setPosition(m_targetLocation);
-	m_gumbaSprite.setTextureRect(sf::IntRect{ 0,0,52,54 });
-
+	m_gumbaSprite.setTextureRect(sf::IntRect{ 0, 0, 52, 54 });
 	m_gumbaSprite.setScale(-1.0f, 1.0f);
 	m_gumbaSprite.setOrigin(52.0f, 0.0f);
 
@@ -191,11 +192,14 @@ void Game::moveTarget()//added movement to the target and collusion
 	}
 	m_targetLocation += m_targetVelocity;
 	m_target.setPosition(m_targetLocation);
+	m_gumbaSprite.setPosition(m_targetLocation);
 
 }
 void Game::animationGumba()
 {
 	int frame = 0;
+	int row = 0;
+	int column = 0;
 	const int FRAME_WIDTH = 52;
 	const int FRAME_HEIGHT = 54;
 
@@ -206,11 +210,12 @@ void Game::animationGumba()
 		frame = 0;
 		m_gumbaFrameCounter = 0.0f;
 	}
+	row = frame / 10;
+	column = frame % 10;
 	if (frame != m_gumbaFrame)
 	{
 		m_gumbaFrame = frame;
-		m_gumbaSprite.setTextureRect(sf::IntRect{ frame * FRAME_WIDTH,0,FRAME_WIDTH, FRAME_HEIGHT });
-
+		m_gumbaSprite.setTextureRect(sf::IntRect{ column * FRAME_WIDTH,FRAME_HEIGHT * row,FRAME_WIDTH, FRAME_HEIGHT });
 	}
 }
 

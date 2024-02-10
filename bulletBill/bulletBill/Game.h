@@ -50,7 +50,7 @@ private:
 	int m_gumbaFrame{ -1 };
 	const int GUMBA_FRAMES = 20;
 	float m_gumbaFrameCounter = 0.0f;
-	float m_gumbaFrameIncrement = 0.0f;
+	float m_gumbaFrameIncrement = 0.3f;
 
 };
 
