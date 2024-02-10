@@ -40,7 +40,8 @@ private:
 	sf::Vector2f m_targetLocation; // location of target
 
 	sf::Vector2f m_targetVelocity{ 0.6f,0.0f }; // velocity of the target
-
+	sf::Texture m_gumbaTexture;//texture of gumba
+	sf::Sprite m_gumbaSprite;//Sprite of gumba
 	bool m_exitGame; // control exiting game
 
 };

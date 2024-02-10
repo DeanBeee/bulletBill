@@ -134,6 +134,13 @@ void Game::setupFontAndText()
 	m_welcomeMessage.setOutlineColor(sf::Color::Red);
 	m_welcomeMessage.setFillColor(sf::Color::Black);
 	m_welcomeMessage.setOutlineThickness(3.0f);
+	if (!m_gumbaTexture.loadFromFile("ASSETS\\IMAGES\\gumba.png"))
+	{
+		std::cout << "problem loading gumba texture" << std::endl;
+	}
+	m_gumbaSprite.setTexture(m_gumbaTexture);
+	m_gumbaSprite.setPosition(m_targetLocation);
+	m_gumbaSprite.setTextureRect(sf::IntRect{ 0,0,52,54 });
 
 }
 
@@ -151,6 +158,8 @@ void Game::setupSprite()
 	m_target.setSize(sf::Vector2f{ 55.0f, 55.0f });
 	m_targetLocation = sf::Vector2f{ 435.0f,545.0f };
 	m_target.setPosition(m_targetLocation);
+
+	//gumbas properties 
 
 
 }
