@@ -102,6 +102,7 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 	moveTarget();
+	animationGumba();
 }
 
 /// <summary>
@@ -114,6 +115,7 @@ void Game::render()
 	m_window.draw(m_logoSprite);
 	m_window.draw(m_target);
 	m_window.draw(m_wall);
+	m_window.draw(m_gumbaSprite);
 	m_window.display();
 }
 
@@ -134,13 +136,7 @@ void Game::setupFontAndText()
 	m_welcomeMessage.setOutlineColor(sf::Color::Red);
 	m_welcomeMessage.setFillColor(sf::Color::Black);
 	m_welcomeMessage.setOutlineThickness(3.0f);
-	if (!m_gumbaTexture.loadFromFile("ASSETS\\IMAGES\\gumba.png"))
-	{
-		std::cout << "problem loading gumba texture" << std::endl;
-	}
-	m_gumbaSprite.setTexture(m_gumbaTexture);
-	m_gumbaSprite.setPosition(m_targetLocation);
-	m_gumbaSprite.setTextureRect(sf::IntRect{ 0,0,52,54 });
+	
 
 }
 
@@ -160,6 +156,17 @@ void Game::setupSprite()
 	m_target.setPosition(m_targetLocation);
 
 	//gumbas properties 
+	if (!m_gumbaTexture.loadFromFile("ASSETS\\IMAGES\\gumba.png"))
+	{
+		std::cout << "problem loading gumba texture" << std::endl;
+	}
+
+	m_gumbaSprite.setTexture(m_gumbaTexture);
+	m_gumbaSprite.setPosition(m_targetLocation);
+	m_gumbaSprite.setTextureRect(sf::IntRect{ 0,0,52,54 });
+
+	m_gumbaSprite.setScale(-1.0f, 1.0f);
+	m_gumbaSprite.setOrigin(52.0f, 0.0f);
 
 
 }
@@ -173,11 +180,37 @@ void Game::moveTarget()//added movement to the target and collusion
 	if (m_targetLocation.x < LEFT_EDGE)
 	{
 		m_targetVelocity.x = SPEED;
+		m_gumbaSprite.setScale(-1.0f, 1.0f);
+		m_gumbaSprite.setOrigin(52.0f, 0.0f);
 	}
 	if (m_targetLocation.x > RIGHT_EDGE)
 	{
 		m_targetVelocity.x = -SPEED;
+		m_gumbaSprite.setScale(1.0f, 1.0f);
+		m_gumbaSprite.setOrigin(0.0f, 0.0f);
 	}
 	m_targetLocation += m_targetVelocity;
 	m_target.setPosition(m_targetLocation);
+
 }
+void Game::animationGumba()
+{
+	int frame = 0;
+	const int FRAME_WIDTH = 52;
+	const int FRAME_HEIGHT = 54;
+
+	m_gumbaFrameCounter += m_gumbaFrameIncrement;
+	frame = static_cast<int>(m_gumbaFrameCounter);
+	if (frame >= GUMBA_FRAMES)
+	{
+		frame = 0;
+		m_gumbaFrameCounter = 0.0f;
+	}
+	if (frame != m_gumbaFrame)
+	{
+		m_gumbaFrame = frame;
+		m_gumbaSprite.setTextureRect(sf::IntRect{ frame * FRAME_WIDTH,0,FRAME_WIDTH, FRAME_HEIGHT });
+
+	}
+}
+
